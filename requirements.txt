@@ -1,0 +1,11 @@
+streamlit
+streamlit
+yfinance
+pandas
+numpy
+statsmodels
+torch
+scikit-learn
+arch
+joblib
+plotly
