@@ -431,7 +431,10 @@ def predicciones(dias):
     daily_retornos_ = np.log(daily_completo).diff()
     daily_retornos = daily_retornos_.dropna()
     
-
+    daily_precios = daily_precios.asfreq("B")
+    daily_retornos = daily_retornos.asfreq("B")
+    
+   
     fit_precios = res_precios_guardado.apply(daily_precios)
     forecast_precios = fit_precios.get_forecast(steps= dias)
     pred_mean_precios = forecast_precios.predicted_mean
@@ -564,6 +567,7 @@ col2.metric("Volatilidad",f"{resultado["Volatilidad_acumulada"]:.2f}")
 fig = go.Figure()
         
 daily_completo = daily_completo.dropna()
+daily_retornos_grafica = daily_retornos.dropna()
 
 # Histórico
 fig.add_trace(go.Scatter(x=daily_completo.tail(126).index, y=daily_completo.tail(126).iloc[:,0],
@@ -626,7 +630,7 @@ col3.metric("Ratio LSTM",f"{ratio_lstm:.2f}")
 fig_2 = go.Figure()
 
 # Histórico
-fig_2.add_trace(go.Scatter(x=daily_retornos.tail(126).index, y=daily_retornos.tail(126).iloc[:,0],
+fig_2.add_trace(go.Scatter(x=daily_retornos_grafica.tail(126).index, y=daily_retornos_grafica.tail(126).iloc[:,0],
                 mode="lines",name="retornos",
                 line=dict(color="blue"),showlegend=False))   
 # SARIMAX
